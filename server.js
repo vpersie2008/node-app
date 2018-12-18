@@ -18,6 +18,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 //parse application/json
 app.use(bodyParser.json());
 
+//使用中间件，来允许跨域
+app.use((req,res,next)=>{
+    res.header("Access-Control-Allow-Origin","*");
+    res.header("Access-Control-Allow-Headers","Content-Type");
+    res.header("Access-Control-Allow-Methods","GET,POST,PUT,DELETE,OPTIONS");
+    next();
+});
+
 //passport 初始化
 app.use(passport.initialize());
 

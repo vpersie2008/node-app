@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 const passport = require("passport");
 const key = require("../../config/keys");
 const User = require("../../models/Users");
-
+const validateRegisterInput = require("../../validation/register");
 //加盐加密规则
 const saltRounds = 10;
 
@@ -20,6 +20,14 @@ router.get("/users", (req, res) => {
 
 //$route POST api/users/register @description 返回请求的json数据 Register
 router.post("/register", (req, res) => {
+
+    const {errors,isValid} = validateRegisterInput(req.body);
+    console.log("isvalid : " + isValid);
+    console.log("errors : " + errors);
+
+    if(!isValid){
+        return res.status(400).json(errors);
+    }
 
     User
         .findOne({email: req.body.email})
