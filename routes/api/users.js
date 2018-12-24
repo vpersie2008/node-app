@@ -1,7 +1,7 @@
 const express = require("express"); //引入express
 const router = express.Router(); //获取express中的路由
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
+const jwt = require("jsonwebtoken");//使用jsonwebtoken用于生成一个token，用于验证登录
 const passport = require("passport");
 const key = require("../../config/keys");
 const User = require("../../models/Users");
@@ -22,9 +22,7 @@ router.get("/users", (req, res) => {
 router.post("/register", (req, res) => {
 
     const {errors,isValid} = validateRegisterInput(req.body);
-    console.log("isvalid : " + isValid);
-    console.log("errors : " + errors);
-
+    
     if(!isValid){
         return res.status(400).json(errors);
     }

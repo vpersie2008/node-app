@@ -6,6 +6,7 @@ const db = require('./config/keys');
 
 const app = express();
 const users = require("./routes/api/users");//将路由下的users引入
+const posts = require("./routes/api/posts");
 
 //连接MongoDB
 mongoose.connect(db.mongoURI)
@@ -34,6 +35,7 @@ require("./config/passport")(passport);
 
 //使用中间件,设置users的路由,必须先加载body-parser再加载路由，因为程序是顺序执行的，有依赖关系
 app.use("/api/users",users);
+app.use("/api/posts",posts);
 
 const port = process.env.PORT || 5000;
 
